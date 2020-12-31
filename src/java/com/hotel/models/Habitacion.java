@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -38,11 +40,12 @@ public class Habitacion implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "nombre")
+    @Column(name = "nombre", unique = true)
     private String name;
 
     @Basic(optional = false)
     @NotNull
+    @Min(10000) @Max(1000000)
     @Column(name = "precio")
     private double price;
 
@@ -124,5 +127,9 @@ public class Habitacion implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(roomId);
+    }
+
+    public boolean hasRelations(){
+        return reservationList.size() == 0;
     }
 }
