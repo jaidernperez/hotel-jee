@@ -2,7 +2,7 @@ package com.hotel.utilities;
 
 import java.util.Date;
 
-public class DateReservation {
+public class UtilityDate {
 
     public static java.sql.Date generateDate() {
         Date currentDate = new java.util.Date();
