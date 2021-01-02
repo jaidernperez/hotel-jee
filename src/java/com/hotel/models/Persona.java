@@ -38,7 +38,7 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "cedula")
+    @Column(name = "cedula", unique = true)
     private String dni;
 
     @Basic(optional = false)
@@ -56,7 +56,7 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "correo")
+    @Column(name = "correo", unique = true)
     private String email;
 
     @Size(max = 20)
@@ -151,5 +151,9 @@ public class Persona implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(personId);
+    }
+
+    public boolean hasRelations(){
+        return getReservationList().size() == 0 && getUserList().size() == 0;
     }
 }

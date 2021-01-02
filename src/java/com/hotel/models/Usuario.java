@@ -34,7 +34,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "nombre_usuario")
+    @Column(name = "nombre_usuario", unique = true)
     private String userNme;
 
     @Basic(optional = false)
@@ -121,5 +121,8 @@ public class Usuario implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(userId);
+    }
+
+    public void login(){
     }
 }

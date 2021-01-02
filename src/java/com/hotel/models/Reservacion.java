@@ -1,5 +1,7 @@
 package com.hotel.models;
 
+import com.hotel.utilities.UtilityDate;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,15 +14,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
- *
  * @author JaiderPerez
  */
 @Entity
@@ -46,9 +45,8 @@ public class Reservacion implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "precio_total")
-    private Double totalPrice;
+    private double totalPrice;
 
     @Column(name = "estado")
     private Boolean state;
@@ -135,5 +133,9 @@ public class Reservacion implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(reservationId);
+    }
+
+    public void calculateTotalPrice() {
+        setTotalPrice(getRoom().getPrice() * UtilityDate.getDiffDays(getStartDate(), getEndDate()));
     }
 }

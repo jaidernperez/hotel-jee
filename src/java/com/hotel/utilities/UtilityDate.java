@@ -16,4 +16,13 @@ public class UtilityDate {
     public static java.sql.Date convertToSqlDate(Date date){
         return new java.sql.Date(date.getTime());
     }
+
+    public static int getDiffDays(Date startDate, Date endDate) {
+        long startTime = startDate.getTime();
+        long endTime = endDate.getTime();
+
+        long diffTime = endTime - startTime;
+        long diffDays = diffTime / (86400000);
+        return (int) diffDays;
+    }
 }
