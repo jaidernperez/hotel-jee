@@ -5,9 +5,14 @@ import com.hotel.models.Reservacion;
 import com.hotel.utilities.UtilityDate;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
-public class ReservationService {
+@SessionScoped
+@Named(value = "reservationService")
+public class ReservationService implements Serializable {
 
     @EJB
     private ReservationFacade reservationFacade;
@@ -53,5 +58,16 @@ public class ReservationService {
             reservation.setStartDate(UtilityDate.generateDate());
         }
         return reservation;
+    }
+
+    public void finalizeReservation(Reservacion reservation){
+        reservation.calculateTotalPrice();
+        RoomService roomService = new RoomService();
+        roomService.changeAvailability(reservation.getRoom(), true);
+
+        if (reservation.getEndDate() == null){
+            reservation.setEndDate(UtilityDate.generateDate());
+        }
+        update(reservation);
     }
 }
