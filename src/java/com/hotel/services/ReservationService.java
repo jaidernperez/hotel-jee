@@ -5,14 +5,11 @@ import com.hotel.models.Reservacion;
 import com.hotel.utilities.UtilityDate;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import java.io.Serializable;
+import javax.ejb.Stateless;
 import java.util.List;
 
-@SessionScoped
-@Named(value = "reservationService")
-public class ReservationService implements Serializable {
+@Stateless
+public class ReservationService {
 
     @EJB
     private ReservationFacade reservationFacade;
@@ -49,7 +46,7 @@ public class ReservationService implements Serializable {
         update(reservation);
     }
 
-    public ReservationFacade getReservationFacade() {
+    private ReservationFacade getReservationFacade() {
         return reservationFacade;
     }
 

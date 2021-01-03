@@ -4,14 +4,11 @@ import com.hotel.facades.RoomFacade;
 import com.hotel.models.Habitacion;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import java.io.Serializable;
+import javax.ejb.Stateless;
 import java.util.List;
 
-@SessionScoped
-@Named(value = "roomService")
-public class RoomService implements Serializable {
+@Stateless
+public class RoomService {
 
     @EJB
     private RoomFacade roomFacade;
@@ -45,7 +42,7 @@ public class RoomService implements Serializable {
         update(room);
     }
 
-    public RoomFacade getRoomFacade() {
+    private RoomFacade getRoomFacade() {
         return roomFacade;
     }
 }

@@ -4,14 +4,9 @@ import com.hotel.facades.PersonFacade;
 import com.hotel.models.Persona;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import java.io.Serializable;
 import java.util.List;
 
-@SessionScoped
-@Named(value = "personService")
-public class PersonService implements Serializable {
+public class PersonService {
 
     @EJB
     private PersonFacade personFacade;
@@ -31,14 +26,14 @@ public class PersonService implements Serializable {
     }
 
     public List<Persona> list(){
-        return personFacade.list();
+        return getPersonFacade().list();
     }
 
     public Persona find(int id){
        return getPersonFacade().find(id);
     }
 
-    public PersonFacade getPersonFacade() {
+    private PersonFacade getPersonFacade() {
         return personFacade;
     }
 }
