@@ -65,7 +65,7 @@ public class RoomController implements Serializable {
         return null;
     }
 
-    public List<Habitacion> listeRooms() {
+    public List<Habitacion> listRooms() {
         return service.list();
     }
 

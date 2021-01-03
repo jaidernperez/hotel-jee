@@ -4,8 +4,10 @@ import com.hotel.facades.PersonFacade;
 import com.hotel.models.Persona;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import java.util.List;
 
+@Stateless
 public class PersonService {
 
     @EJB
