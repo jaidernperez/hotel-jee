@@ -1,7 +1,7 @@
 package com.hotel.controllers;
 
-import com.hotel.models.Habitacion;
-import com.hotel.services.RoomService;
+import com.hotel.models.Persona;
+import com.hotel.services.PersonService;
 import com.hotel.utilities.MessageProperty;
 import com.hotel.utilities.ShowMessage;
 
@@ -12,77 +12,77 @@ import java.io.Serializable;
 import java.util.List;
 
 @SessionScoped
-@Named(value = "roomController")
-public class RoomController implements Serializable {
+@Named(value = "personController")
+public class PersonController implements Serializable {
 
     @EJB
-    private RoomService service;
+    private PersonService service;
 
-    private Habitacion roomCurrent;
+    private Persona personCurrent;
     private String searchString;
 
-    private void initRoom() {
-        roomCurrent = new Habitacion();
+    private void initPerson() {
+        personCurrent = new Persona();
     }
 
-    public String redirectRoom(Habitacion room, String face) {
-        this.roomCurrent = room;
+    public String redirectPerson(Persona person, String face) {
+        this.personCurrent = person;
         return face;
     }
 
-    public String createRoom(Habitacion room) {
+    public String createPerson(Persona person) {
         try {
-            service.create(room);
-            initRoom();
-            messageSuccess("msg.success", "room.create.success");
-            return "room-create";
+            service.create(person);
+            initPerson();
+            messageSuccess("msg.success", "person.create.success");
+            return "person-create";
         } catch (Exception e) {
             messageError("msg.fail", "create.fail");
         }
         return null;
     }
 
-    public String updateRoom(Habitacion room) {
+    public String updatePerson(Persona person) {
         try {
-            service.update(room);
-            messageSuccess("msg.success", "room.update.success");
-            return "room-admin";
+            service.update(person);
+            messageSuccess("msg.success", "person.update.success");
+            return "person-admin";
         } catch (Exception e) {
             messageError("msg.fail", "update.fail");
         }
         return null;
     }
 
-    public String deleteRoom(Habitacion room) {
+    public String deletePerson(Persona person) {
         try {
-            service.delete(room);
-            initRoom();
-            messageSuccess("msg.success", "room.delete.success");
-            return "room-admin";
+            service.delete(person);
+            initPerson();
+            messageSuccess("msg.success", "person.delete.success");
+            return "person-admin";
         } catch (Exception e) {
             messageError("msg.fail", "delete.fail");
         }
         return null;
     }
 
-    public List<Habitacion> listRooms() {
+    public List<Persona> listPersons() {
         return service.list();
     }
 
-    public Habitacion finOneRoom(int id) {
+    public Persona findPerson(int id) {
         try {
             return service.find(id);
         } catch (Exception e) {
-            messageError("msg.fail", "room.find.fail");
+            messageError("msg.fail", "person.find.fail");
         }
         return null;
     }
 
-    public Habitacion getSelected() {
-        if (roomCurrent == null) {
-            initRoom();
+    public Persona getSelected() {
+        if (personCurrent == null) {
+            initPerson();
         }
-        return roomCurrent;
+        return personCurrent;
     }
 
     public void messageSuccess(String msgTitle, String msgDetail) {

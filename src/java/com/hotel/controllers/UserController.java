@@ -1,7 +1,7 @@
 package com.hotel.controllers;
 
-import com.hotel.models.Habitacion;
-import com.hotel.services.RoomService;
+import com.hotel.models.Usuario;
+import com.hotel.services.UserService;
 import com.hotel.utilities.MessageProperty;
 import com.hotel.utilities.ShowMessage;
 
@@ -12,77 +12,77 @@ import java.io.Serializable;
 import java.util.List;
 
 @SessionScoped
-@Named(value = "roomController")
-public class RoomController implements Serializable {
+@Named(value = "userController")
+public class UserController implements Serializable {
 
     @EJB
-    private RoomService service;
+    private UserService service;
 
-    private Habitacion roomCurrent;
+    private Usuario userCurrent;
     private String searchString;
 
-    private void initRoom() {
-        roomCurrent = new Habitacion();
+    private void initUser() {
+        userCurrent = new Usuario();
     }
 
-    public String redirectRoom(Habitacion room, String face) {
-        this.roomCurrent = room;
+    public String redirectUser(Usuario user, String face) {
+        this.userCurrent = user;
         return face;
     }
 
-    public String createRoom(Habitacion room) {
+    public String createUser(Usuario user) {
         try {
-            service.create(room);
-            initRoom();
-            messageSuccess("msg.success", "room.create.success");
-            return "room-create";
+            service.create(user);
+            initUser();
+            messageSuccess("msg.success", "user.create.success");
+            return "user-create";
         } catch (Exception e) {
             messageError("msg.fail", "create.fail");
         }
         return null;
     }
 
-    public String updateRoom(Habitacion room) {
+    public String updateUser(Usuario user) {
         try {
-            service.update(room);
-            messageSuccess("msg.success", "room.update.success");
-            return "room-admin";
+            service.update(user);
+            messageSuccess("msg.success", "user.update.success");
+            return "user-admin";
         } catch (Exception e) {
             messageError("msg.fail", "update.fail");
         }
         return null;
     }
 
-    public String deleteRoom(Habitacion room) {
+    public String deleteUser(Usuario user) {
         try {
-            service.delete(room);
-            initRoom();
-            messageSuccess("msg.success", "room.delete.success");
-            return "room-admin";
+            service.delete(user);
+            initUser();
+            messageSuccess("msg.success", "user.delete.success");
+            return "user-admin";
         } catch (Exception e) {
             messageError("msg.fail", "delete.fail");
         }
         return null;
     }
 
-    public List<Habitacion> listRooms() {
+    public List<Usuario> listUsers() {
         return service.list();
     }
 
-    public Habitacion finOneRoom(int id) {
+    public Usuario findUser(int id) {
         try {
             return service.find(id);
         } catch (Exception e) {
-            messageError("msg.fail", "room.find.fail");
+            messageError("msg.fail", "user.find.fail");
         }
         return null;
     }
 
-    public Habitacion getSelected() {
-        if (roomCurrent == null) {
-            initRoom();
+    public Usuario getSelected() {
+        if (userCurrent == null) {
+            initUser();
         }
-        return roomCurrent;
+        return userCurrent;
     }
 
     public void messageSuccess(String msgTitle, String msgDetail) {
@@ -106,4 +106,5 @@ public class RoomController implements Serializable {
     public void setSearchString(String searchString) {
         this.searchString = searchString;
     }
+
 }

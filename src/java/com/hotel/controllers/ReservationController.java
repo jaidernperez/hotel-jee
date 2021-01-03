@@ -1,7 +1,7 @@
 package com.hotel.controllers;
 
-import com.hotel.models.Habitacion;
-import com.hotel.services.RoomService;
+import com.hotel.models.Reservacion;
+import com.hotel.services.ReservationService;
 import com.hotel.utilities.MessageProperty;
 import com.hotel.utilities.ShowMessage;
 
@@ -12,77 +12,77 @@ import java.io.Serializable;
 import java.util.List;
 
 @SessionScoped
-@Named(value = "roomController")
-public class RoomController implements Serializable {
+@Named(value = "reservationController")
+public class ReservationController implements Serializable {
 
     @EJB
-    private RoomService service;
+    private ReservationService service;
 
-    private Habitacion roomCurrent;
+    private Reservacion reservationCurrent;
     private String searchString;
 
-    private void initRoom() {
-        roomCurrent = new Habitacion();
+    private void initReservation() {
+        reservationCurrent = new Reservacion();
     }
 
-    public String redirectRoom(Habitacion room, String face) {
-        this.roomCurrent = room;
+    public String redirectReservation(Reservacion reservation, String face) {
+        this.reservationCurrent = reservation;
         return face;
     }
 
-    public String createRoom(Habitacion room) {
+    public String createReservation(Reservacion reservation) {
         try {
-            service.create(room);
-            initRoom();
-            messageSuccess("msg.success", "room.create.success");
-            return "room-create";
+            service.create(reservation);
+            initReservation();
+            messageSuccess("msg.success", "reservation.create.success");
+            return "reservation-create";
         } catch (Exception e) {
             messageError("msg.fail", "create.fail");
         }
         return null;
     }
 
-    public String updateRoom(Habitacion room) {
+    public String updateReservation(Reservacion reservation) {
         try {
-            service.update(room);
-            messageSuccess("msg.success", "room.update.success");
-            return "room-admin";
+            service.update(reservation);
+            messageSuccess("msg.success", "reservation.update.success");
+            return "reservation-admin";
         } catch (Exception e) {
             messageError("msg.fail", "update.fail");
         }
         return null;
     }
 
-    public String deleteRoom(Habitacion room) {
+    public String deleteReservation(Reservacion reservation) {
         try {
-            service.delete(room);
-            initRoom();
-            messageSuccess("msg.success", "room.delete.success");
-            return "room-admin";
+            service.delete(reservation);
+            initReservation();
+            messageSuccess("msg.success", "reservation.delete.success");
+            return "reservation-admin";
         } catch (Exception e) {
             messageError("msg.fail", "delete.fail");
         }
         return null;
     }
 
-    public List<Habitacion> listRooms() {
+    public List<Reservacion> listReservations() {
         return service.list();
     }
 
-    public Habitacion finOneRoom(int id) {
+    public Reservacion findReservation(int id) {
         try {
             return service.find(id);
         } catch (Exception e) {
-            messageError("msg.fail", "room.find.fail");
+            messageError("msg.fail", "reservation.find.fail");
         }
         return null;
     }
 
-    public Habitacion getSelected() {
-        if (roomCurrent == null) {
-            initRoom();
+    public Reservacion getSelected() {
+        if (reservationCurrent == null) {
+            initReservation();
         }
-        return roomCurrent;
+        return reservationCurrent;
     }
 
     public void messageSuccess(String msgTitle, String msgDetail) {
